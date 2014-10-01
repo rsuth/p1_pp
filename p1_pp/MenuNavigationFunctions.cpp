@@ -227,9 +227,9 @@ void printRobot(){
 }
 
 void hitEnter(){
-	moveCursor(35, 20);
+	moveCursor(37, 24);
 	changeColor(188);
-	cout << "hit ENTER to continue";
+	cout << "[ENTER]";
 	cin.ignore(10000, '\n');
 }
 
