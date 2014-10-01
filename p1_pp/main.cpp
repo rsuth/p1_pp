@@ -29,9 +29,5 @@
 using namespace std;
 
 int main(){
-	cout << "here comes the robot";
-	printRobot();
-	return 0;
-	//DONE
 
 }
