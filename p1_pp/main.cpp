@@ -28,7 +28,4 @@
 using namespace std;
 
 int main(){
-	printBackground(33, '#');
-	printRobot();
-	cin.ignore();
 }
