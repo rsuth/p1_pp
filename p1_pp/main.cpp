@@ -24,8 +24,12 @@
 
 #include"MenuNavigationFunctions.h"
 #include<iostream>
+#include<Windows.h>
 
 using namespace std;
 
 int main(){
+	cout << "here comes the robot";
+	printRobot();
+
 }
