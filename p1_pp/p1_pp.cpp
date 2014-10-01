@@ -5,16 +5,20 @@
 #include<iomanip>
 #include<vector>
 #include<Windows.h>
+#include<stdlib.h>
+#include<time.h>
 
 using namespace std;
 
 // TITLE:	printMainMenu
 // DESC:	prints the main menu and handles menu selection loop 
 void printMainMenu(bool &quit){
+	printBackground(1, ' ');
+	changeColor(7);
 	
 	string user = "bill";
 	int rows = 10;
-	int balls = 1000;
+	int balls = 10;
 	int** board = 0;
 
 	board = initializeBoard(rows);
@@ -28,22 +32,22 @@ void printMainMenu(bool &quit){
 // DESC:	prints the completed galton board
 //			Takes a pointer to the board state array
 void printGaltonBoard(const string* username, int rows, int** board){
-	
-	for(int i = 0; i < rows; i++){
+		
+	for(int row = 0; row < rows; row++){
 
 		//Formatting: Print new line, tabs
-		cout << "\n\t\t";
+		cout << "\n\tRow#: " << row << "\t";
 
 		//Formatting: for loop to center each line by printing spaces
-		for(int k = (rows - i); k >= 0; k--){
+		for(int k = (rows - row); k >= 0; k--){
 				cout << "  ";
 		}
 		
 		//Print the row contents:
-		for (int j = 0; j <= i; j++){
+		for (int col = 0; col <= row; col++){
 			cout << setw(4);
-			cout << *(*(board+j));
-			//Sleep(100);					// small pause after each "peg";
+			cout << *(*(board+row)+col);
+			Sleep(25);					// small pause after each "peg";
 		}
 
 		//Finished with row, make a new line.
@@ -75,14 +79,23 @@ void printIDandStars(){}
 //			state array.
 void runGalton(int balls, int rows, int** board){
 	
-	// SET THE TOP 
 	*(*(board)) = balls;
-
-	for(int i = 0; i < balls; i++){
-		for(int j = 0; j < rows; j++){
-			
+	
+	for(int ball = 0; ball < balls; ball++){
+		for(int row = 1; row < rows; row++){
+			for(int col = 0; col <= row; col++){
+				if((rand() % 2) != 1){
+					(*(*(board+row)+col)) = 1;
+				}
+				else
+					(*(*(board+row)+col)) = 0;
+			}
 		}
 	}
+
+	//*(*(board+row)+col) = 420;
+
+
 }
 
 //int** runGaltonGame(int balls, int rows){}
