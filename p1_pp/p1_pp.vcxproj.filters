@@ -21,9 +21,15 @@
     <ClCompile Include="MenuNavigationFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="p1_pp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MenuNavigationFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="p1_pp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
