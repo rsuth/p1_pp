@@ -3,7 +3,6 @@
 #include<string>
 #include<iostream>
 #include<iomanip>
-#include<vector>
 #include<Windows.h>
 #include<stdlib.h>
 #include<time.h>
@@ -18,12 +17,11 @@ void printMainMenu(bool &quit){
 	
 	string user = "bill";
 	int rows = 10;
-	int balls = 10;
-	int** board = 0;
+	int balls = 1000;
+	int prob = 50;
 
-	board = initializeBoard(rows);
-	runGalton(balls, rows, board);
-	printGaltonBoard(&user,rows,board);
+	goGalton(&user, rows, balls, prob);
+
 	hitEnter();
 	quit = true;
 }
@@ -69,7 +67,9 @@ void printGaltonGame(const string* username, int* board){}
 
 void printGameHistory(){}
 
-void signIn(string &username){}
+string signIn(){
+	return "PLACEHOLDER";
+}
 
 void printIDandStars(){}
 
@@ -78,24 +78,19 @@ void printIDandStars(){}
 //			returns a pointer to the completed board 
 //			state array.
 void runGalton(int balls, int rows, int** board){
-	
+	srand(time(NULL));
 	*(*(board)) = balls;
 	
-	for(int ball = 0; ball < balls; ball++){
-		for(int row = 1; row < rows; row++){
-			for(int col = 0; col <= row; col++){
-				if((rand() % 2) != 1){
-					(*(*(board+row)+col)) = 1;
-				}
+	for(int row = 1; row < rows; row++){
+		for(int col = 0; col < row; col++){
+			for(int i = 0; i < (*(*(board+row-1)+col)); i++){
+				if((rand() % 2) != 0)
+					(*(*(board+row)+col))++;
 				else
-					(*(*(board+row)+col)) = 0;
+					(*(*(board+row)+col+1))++;
 			}
 		}
 	}
-
-	//*(*(board+row)+col) = 420;
-
-
 }
 
 //int** runGaltonGame(int balls, int rows){}
@@ -118,5 +113,22 @@ int** initializeBoard(int rows){
 	}
 
 	return board;
+}
+
+void deleteBoard(int** board, int rows){
+	for(int i = 0; i < rows; i++){
+		delete[] board[i];
+	}
+	delete[] board;
+}
+
+void goGalton(const string* username, int rows, int balls, int prob){
+	
+	int** board = 0;
+	
+	board = initializeBoard(rows);
+	runGalton(balls, rows, board);
+	printGaltonBoard(username, rows, board);
+	deleteBoard(board, rows);
 
 }
