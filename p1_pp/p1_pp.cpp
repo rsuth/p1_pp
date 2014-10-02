@@ -6,22 +6,25 @@
 #include<Windows.h>
 #include<stdlib.h>
 #include<time.h>
+#include<vector>
 
 using namespace std;
 
 // TITLE:	printMainMenu
 // DESC:	prints the main menu and handles menu selection loop 
 void printMainMenu(bool &quit){
-	printBackground(1, ' ');
+	
+	printBackground(98, ' ');
 	changeColor(7);
 	
-	string user = "bill";
+	string user = "default";
 	int rows = 10;
 	int balls = 1000;
 	int prob = 50;
+	
+	signIn(&user);
 
 	goGalton(&user, rows, balls, prob);
-
 	hitEnter();
 }
 
@@ -48,7 +51,7 @@ void printGaltonBoard(const string* username, int rows, int** board){
 		}
 
 		//Finished with row, make a new line.
-		cout << "\n";
+		//cout << "\n";
 
 	}
 
@@ -66,8 +69,18 @@ void printGaltonGame(const string* username, int* board){}
 
 void printGameHistory(){}
 
-string signIn(){
-	return "PLACEHOLDER";
+void signIn(string* username){
+	
+	vector<string> prompt;
+
+	prompt.push_back(" ");
+	prompt.push_back(" Please Enter Your Name: ");
+
+	printWindow(15,15,45,4, 24);
+	printWindowText(prompt, 15, 15);
+
+	getline(cin, *username);
+
 }
 
 void printIDandStars(){}
@@ -77,7 +90,7 @@ void printIDandStars(){}
 //			returns a pointer to the completed board 
 //			state array.
 void runGalton(int balls, int rows, int** board){
-	
+
 	srand(time(NULL));
 	
 	*(*(board)) = balls;
@@ -127,9 +140,41 @@ void goGalton(const string* username, int rows, int balls, int prob){
 	
 	int** board = 0;
 	
+	printBackground(240, ' ');
+	moveCursor(0,0);
+	changeColor(240);
+
+	cout << "\t\tHello, " << *username << ", Thanks for Running the Galton Board.";
+	
+	
 	board = initializeBoard(rows);
 	runGalton(balls, rows, board);
 	printGaltonBoard(username, rows, board);
+	printHistogram(board, rows);
 	deleteBoard(board, rows);
+
+}
+
+void printHistogram(int** board, int rows){
+	int* endCount = new int[rows];
+	int* starCount = new int[rows];
+	int stars;
+	cout << setw(6) << "\t";
+	
+	for(int i = 0; i < rows; i++){
+		endCount[i] = board[rows-1][i];
+	}
+	for (int k = rows;k >= 0; k--){
+		cout << endl;
+		cout << "\t\t";
+		for(int j = 0; j < rows; j++){
+		
+			if((endCount[j]+5)/(20*(k+1)) > 0)
+				cout << setw(6) << "*    ";
+			else
+				cout << setw(6) << "     ";
+		}
+	
+	}
 
 }

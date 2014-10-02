@@ -111,6 +111,8 @@ void printWindowText(vector<string> &content, int xPos, int yPos);
 -----------------------------------------------------------------*/
 void printWindowText(vector<string> &content, int xPos, int yPos, int colorCode);
 
+
+
 /*---------------------------------------------------------------
 	TITLE:	printErrorMessage 
 	Desc:	displays an error window for a second in center of 

@@ -38,7 +38,7 @@ void moveCursor(int x, int y){
 void printBackground(int colorValue, char patternChar){
 	moveCursor(0,0);
 	changeColor(colorValue);
-	for(int i = 0; i < 25; i++){
+	for(int i = 0; i < 40; i++){
 		for(int j = 0; j < 80; j++){
 			cout << patternChar;
 		}
@@ -227,7 +227,7 @@ void printRobot(){
 }
 
 void hitEnter(){
-	moveCursor(37, 24);
+	moveCursor(70, 20);
 	changeColor(188);
 	cout << "[ENTER]";
 	cin.ignore(10000, '\n');
