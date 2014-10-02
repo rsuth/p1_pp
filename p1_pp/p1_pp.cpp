@@ -23,7 +23,6 @@ void printMainMenu(bool &quit){
 	goGalton(&user, rows, balls, prob);
 
 	hitEnter();
-	quit = true;
 }
 
 // TITLE:	printGaltonBoard
@@ -34,16 +33,16 @@ void printGaltonBoard(const string* username, int rows, int** board){
 	for(int row = 0; row < rows; row++){
 
 		//Formatting: Print new line, tabs
-		cout << "\n\tRow#: " << row << "\t";
+		cout << "\nRow#: " << row;
 
 		//Formatting: for loop to center each line by printing spaces
 		for(int k = (rows - row); k >= 0; k--){
-				cout << "  ";
+				cout << "   ";
 		}
 		
 		//Print the row contents:
 		for (int col = 0; col <= row; col++){
-			cout << setw(4);
+			cout << setw(6);
 			cout << *(*(board+row)+col);
 			Sleep(25);					// small pause after each "peg";
 		}
@@ -78,7 +77,9 @@ void printIDandStars(){}
 //			returns a pointer to the completed board 
 //			state array.
 void runGalton(int balls, int rows, int** board){
+	
 	srand(time(NULL));
+	
 	*(*(board)) = balls;
 	
 	for(int row = 1; row < rows; row++){
