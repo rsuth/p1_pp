@@ -10,8 +10,7 @@
 
 using namespace std;
 
-// TITLE:	printMainMenu
-// DESC:	prints the main menu and handles menu selection loop 
+
 void printMainMenu(bool &quit){
 	
 	printBackground(98, ' ');
@@ -28,9 +27,6 @@ void printMainMenu(bool &quit){
 	hitEnter();
 }
 
-// TITLE:	printGaltonBoard
-// DESC:	prints the completed galton board
-//			Takes a pointer to the board state array
 void printGaltonBoard(const string* username, int rows, int** board){
 		
 	for(int row = 0; row < rows; row++){
@@ -57,14 +53,8 @@ void printGaltonBoard(const string* username, int rows, int** board){
 
 }
 
-// TITLE:	printLogo
-// DESC:	prints a Logo
 void printLogo(){}
 
-// TITLE:	printGaltonGame
-// DESC:	prints the completed galton board, also prints 
-//			the users score, takes a pointer to the 
-//			board state array.
 void printGaltonGame(const string* username, int* board){}
 
 void printGameHistory(){}
@@ -85,10 +75,6 @@ void signIn(string* username){
 
 void printIDandStars(){}
 
-// TITLE:	runGalton
-// DESC:	Runs the galton board (displays nothing!)
-//			returns a pointer to the completed board 
-//			state array.
 void runGalton(int balls, int rows, int** board){
 
 	srand(time(NULL));
@@ -106,10 +92,6 @@ void runGalton(int balls, int rows, int** board){
 		}
 	}
 }
-
-//int** runGaltonGame(int balls, int rows){}
-
-//int hitAPeg(int probability){}
 
 int** initializeBoard(int rows){
 	
