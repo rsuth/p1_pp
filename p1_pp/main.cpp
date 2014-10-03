@@ -14,8 +14,8 @@
 */
 
 /****
-* Program Description:
-*		
+* Program Description
+* ===================		
 *		This menu-based program simulates the use of a Galton 
 *	board, which consists of rows of pegs on a tilted board.
 *	at the top of the board, balls are released and move down
@@ -26,12 +26,13 @@
 */
 
 /****
-* Custom Defined Functions List:
-*		
+* Custom Defined Functions List
+* =============================	
 */
 
 /****
-* Stars:
+* Stars
+* =====
 *	(1) Center Output
 *	(2) Print Histogram
 *	(2) Print Histogram "right side up"
@@ -52,7 +53,6 @@ int main(){
 	while(!quit){
 		printMainMenu(quit);
 	}
-	
 	printIDandStars();
 
 	return 0;

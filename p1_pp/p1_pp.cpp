@@ -2,6 +2,7 @@
 #include"MenuNavigationFunctions.h"
 #include<string>
 #include<iostream>
+#include<conio.h>
 #include<iomanip>
 #include<Windows.h>
 #include<stdlib.h>
@@ -10,21 +11,120 @@
 
 using namespace std;
 
+/*
+	The following are all defined as constants in <windows.h>:
 
+	BACKGROUND_INTENSITY	= 128;
+	BACKGROUND_RED			=  64;
+	BACKGROUNDGREEN			=  32;
+	BACKGROUND_BLUE			=  16;
+	FOREGROUND_INTENSITY	=   8;
+	FOREGROUND_RED			=   4;
+	FOREGROUND_GREEN		=   2;
+	FOREGROUND_BLUE			=   1;
+
+	with the following combinations:
+
+	COLOR NAME		BACKGROUND #	FOREGROUND #
+
+	Black				 0				0		(= No Blue, no Green, no Red)
+	Blue				16				1		(= Blue)
+	Green				32				2		(= Green)
+	Cyan				48				3		(= Blue  + Green)
+	Red					64				4		(= Red)
+	Magenta				80				5		(= Blue  + Red)
+	Yellow				96				6		(= Green + Red)
+	White			   112				7		(= Blue  + Green + Red)
+	Intensity + Black  128				8		(= Intensity alone)
+	Intensity + Blue   144				9		(= Intensity + Blue)
+	etc.			   ...			  ...
+	Intensity + White  240			   15		(= Intensity + Blue + Green + Red)
+
+	Then, you can combine any backgound color with any foreground color
+	simply by adding the two corresponding values, like:
+
+	Background Yellow  + Foreground Red =
+	96    +             4   = 100
+
+	Background Intensity + Yellow and Foreground Intensity + Red =
+	128      +   96    +                 8     +  4   = 236
+
+	*/
 void printMainMenu(bool &quit){
-	
-	printBackground(98, ' ');
-	changeColor(7);
-	
-	string user = "default";
+
+	string user = "USER";
 	int rows = 10;
 	int balls = 1000;
 	int prob = 50;
-	
-	signIn(&user);
+	bool signedIn = false;
+	vector<string> menuContent;
 
-	goGalton(&user, rows, balls, prob);
-	hitEnter();
+	menuContent.push_back("\t\t\tMain Menu");
+	menuContent.push_back("\t\t\t=========");
+	menuContent.push_back("\tPlease use the keyboard to make a selection:");
+	menuContent.push_back(" ");
+	menuContent.push_back("  S. Sign in");
+	menuContent.push_back("  L. Display Logo");
+	menuContent.push_back("  G. Go Galton");
+	menuContent.push_back("  P. Play Galton Game");
+	menuContent.push_back("  H. View Game History");
+	menuContent.push_back("  Q. Quit Program");
+	menuContent.push_back(" ");
+	menuContent.push_back("\t\t\t\t\tyou are not signed in.");
+	
+
+	do{
+		
+		if(signedIn){ menuContent[11] = ("\t\t\t\t\tsigned in as: " + user);}
+
+		printBackground(240, ' ');
+		printTitle(&user, signedIn);
+		printWindow(10, 8, 60, 15, 63);
+		printWindowText(menuContent, 10, 9, 63);
+		
+
+		switch (toupper(_getch())){
+			case 'S':
+				signIn(&user, &signedIn);
+				break;
+			case 'L':
+				printLogo();
+				break;
+			case 'G':
+				goGalton(&user, rows, balls, prob);
+				break;
+			case 'P':
+				//goGaltonGame();
+				break;
+			case 'H':
+				//printGameHistory();
+				break;
+			case 'Q':
+				confirmQuit(&quit);
+				break;
+			default:
+				printErrorMessage();
+				break;
+		}
+	
+	}while(!quit);
+
+}
+
+void printTitle(const string* username, bool signedIn){
+	vector<string> welcomeMsg;
+	welcomeMsg.push_back(" ");
+	if(signedIn){
+		welcomeMsg.push_back("\t\tWelcome, " + *username + ", to ");
+		welcomeMsg.push_back("\t\tRick's Galton Board Progam!");
+	}
+	else{
+		welcomeMsg.push_back("\t\tWelcome to ");
+		welcomeMsg.push_back("\t\tRick's Galton Board Program! ");
+	}
+
+	printWindow(10, 2, 60, 5, 95);
+	printWindowText(welcomeMsg, 10, 2, 95);
 }
 
 void printGaltonBoard(const string* username, int rows, int** board){
@@ -59,17 +159,19 @@ void printGaltonGame(const string* username, int* board){}
 
 void printGameHistory(){}
 
-void signIn(string* username){
+void signIn(string* username, bool* signedIn){
 	
 	vector<string> prompt;
 
 	prompt.push_back(" ");
 	prompt.push_back(" Please Enter Your Name: ");
 
-	printWindow(15,15,45,4, 24);
-	printWindowText(prompt, 15, 15);
+	printWindow(17,13,45,4, 31);
+	printWindowText(prompt, 17, 13);
 
 	getline(cin, *username);
+
+	*signedIn = true;
 
 }
 
@@ -126,7 +228,7 @@ void goGalton(const string* username, int rows, int balls, int prob){
 	moveCursor(0,0);
 	changeColor(240);
 
-	cout << "\t\tHello, " << *username << ", Thanks for Running the Galton Board.";
+	cout << "\t\tHello, " << *username << ", Thanks for Running the Galton Board.\n";
 	
 	
 	board = initializeBoard(rows);
@@ -134,7 +236,8 @@ void goGalton(const string* username, int rows, int balls, int prob){
 	printGaltonBoard(username, rows, board);
 	printHistogram(board, rows);
 	deleteBoard(board, rows);
-
+	
+	hitEnter();
 }
 
 void printHistogram(int** board, int rows){

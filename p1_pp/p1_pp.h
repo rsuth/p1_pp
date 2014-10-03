@@ -1,6 +1,7 @@
 #include<string>
 #include<vector>
 
+
 using namespace std;
 
 /****
@@ -13,6 +14,8 @@ using namespace std;
 * Post: NONE
 */
 void printMainMenu(bool &quit);
+
+void printTitle(const string* username, bool signedIn);
 
 /****
 * Title: printGaltonBoard
@@ -68,7 +71,7 @@ void printGameHistory(const string* username, const vector<double>* scores);
 * Pre:	a string exists to hold the username.
 * Post: the string parameter is changed to whatever the user enters.
 */
-void signIn(string* username);
+void signIn(string* username, bool* signedIn);
 
 /****
 * Title: printIDandStars

@@ -117,11 +117,6 @@ void printWindowText(vector<string> &content, int xPos, int yPos, int colorCode)
 */
 void printErrorMessage();
 
-/****
-* TITLE: printRobot
-* Desc:	prints an ASCII art robot to the screen.
-*/
-void printRobot();
 
 /****
 * TITLE: hitEnter
@@ -130,4 +125,9 @@ void printRobot();
 */
 void hitEnter();
 
+/****
+* 
+*
+*/
+void confirmQuit(bool* quit);
 #endif /*MENUNAVIGATIONFUNCTIONS_H*/

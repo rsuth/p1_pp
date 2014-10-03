@@ -193,38 +193,13 @@ void printWindowText(vector<string> &content, int xPos, int yPos, int colorCode)
 void printErrorMessage(){
 	
 	vector<string> invalidMsg_Content;
-	invalidMsg_Content.push_back("   INVALID CHOICE");
-	invalidMsg_Content.push_back("  Please Try Again ");
-	printWindow(30, 12, 20, 3, 79);
-	printWindowText(invalidMsg_Content, 30,12,79);
+	invalidMsg_Content.push_back("  INVALID KEY");
+	printWindow(30, 12, 15, 4, 79);
+	printWindowText(invalidMsg_Content, 30,13,79);
 	Sleep(800);
 
 }
 
-void printRobot(){
-	int yPos = 14; 
-	vector<string> asciiRobot;
-	asciiRobot.push_back("   ____    "); 
-    asciiRobot.push_back("  ||o o|   ");
-    asciiRobot.push_back("  ||===|   ");
-    asciiRobot.push_back(".-.`---'-. ");
-    asciiRobot.push_back("| | o .o | ");
-    asciiRobot.push_back("| | o:.o | ");
-    asciiRobot.push_back("| |      | ");
-    asciiRobot.push_back(" -\".-.-.-' ");
-    asciiRobot.push_back(" _| | : |_ ");
-    asciiRobot.push_back("(ooooo)_)_)");
-	changeColor(188);
-	for(int j = 0; j < 10; j++){
-		for(int i = 0; i < 10; i++){
-			moveCursor(2, 15 + i);
-			cout << asciiRobot[i];
-			Sleep(10);
-			changeColor(((i+j)%7)+240);
-		}
-	}
-
-}
 
 void hitEnter(){
 	moveCursor(70, 20);
@@ -233,3 +208,12 @@ void hitEnter(){
 	cin.ignore(10000, '\n');
 }
 
+void confirmQuit(bool* quit){
+	vector<string> confirmText;
+	confirmText.push_back(" Are you sure you want to quit? (Y/N)?");
+	printWindow(19, 13, 39, 4, 111);
+	printWindowText(confirmText, 19, 14, 111);
+	if(toupper(_getch()) == 'Y'){
+		*quit = true;
+	}
+}
