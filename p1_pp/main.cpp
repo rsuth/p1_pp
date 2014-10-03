@@ -23,8 +23,10 @@
 *****************************************************************/
 /*****************************************************************
 		STARS:
-		1 - Center Galton Board Output
-		2 - 
+		(1) Center Galton Board Output
+		(2) print a histogram of the last rows results
+		(2) print the histogram "right side up"
+
 																
 *****************************************************************/
 
