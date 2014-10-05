@@ -11,6 +11,7 @@
 
 using namespace std;
 
+const string MY_NAME = "Rick";
 /*
 	The following are all defined as constants in <windows.h>:
 
@@ -58,6 +59,8 @@ void printMainMenu(bool &quit){
 	int prob = 50;
 	bool signedIn = false;
 	vector<string> menuContent;
+	vector<game> gameList;
+	int gameNumber = 0;
 
 	menuContent.push_back("\t\t\tMain Menu");
 	menuContent.push_back("\t\t\t=========");
@@ -77,10 +80,10 @@ void printMainMenu(bool &quit){
 		
 		if(signedIn){ menuContent[11] = ("\t\t\t\t\tsigned in as: " + user);}
 
-		printBackground(240, ' ');
+		printBackground(39, '.');
 		printTitle(&user, signedIn);
-		printWindow(10, 8, 60, 15, 63);
-		printWindowText(menuContent, 10, 9, 63);
+		printWindow(10, 8, 60, 15, 26);
+		printWindowText(menuContent, 10, 9, 26);
 		
 
 		switch (toupper(_getch())){
@@ -94,10 +97,11 @@ void printMainMenu(bool &quit){
 				goGalton(&user, rows, balls, prob);
 				break;
 			case 'P':
-				//goGaltonGame();
+				gameNumber++;
+				gameList.push_back(goGaltonGame(&user, rows, balls, prob, gameNumber));
 				break;
 			case 'H':
-				//printGameHistory();
+				printGameHistory(&user, gameList);
 				break;
 			case 'Q':
 				confirmQuit(&quit);
@@ -116,11 +120,11 @@ void printTitle(const string* username, bool signedIn){
 	welcomeMsg.push_back(" ");
 	if(signedIn){
 		welcomeMsg.push_back("\t\tWelcome, " + *username + ", to ");
-		welcomeMsg.push_back("\t\tRick's Galton Board Progam!");
+		welcomeMsg.push_back("\t\t" + MY_NAME + "'s Galton Board Progam!");
 	}
 	else{
 		welcomeMsg.push_back("\t\tWelcome to ");
-		welcomeMsg.push_back("\t\tRick's Galton Board Program! ");
+		welcomeMsg.push_back("\t\t" + MY_NAME+ "'s Galton Board Program! ");
 	}
 
 	printWindow(10, 2, 60, 5, 95);
@@ -153,11 +157,64 @@ void printGaltonBoard(const string* username, int rows, int** board){
 
 }
 
-void printLogo(){}
+void printLogo(){
+
+	//vector<string> logoContent;
+	//logoContent.push_back("   ( (");
+	//logoContent.push_back("    ) )");
+	//logoContent.push_back("  ........");
+	//logoContent.push_back("  |  R   |]");
+	//logoContent.push_back("  \\   S  / ");
+	//logoContent.push_back("   `----'"); 
+
+	vector<string> logoContent2;
+	logoContent2.push_back("     )))                            ");
+	logoContent2.push_back("    (((                             ");
+	logoContent2.push_back("  +-----+                           ");
+	logoContent2.push_back("  | R S |] Rick Sutherland Software ");
+	logoContent2.push_back("  `-----'                           "); // James Christopher Goodwin
+
+	vector<string> frame1;
+	frame1.push_back("     )))");
+	frame1.push_back("    ((( ");
+	
+	vector<string> frame2;
+	frame2.push_back("    ((( ");
+	frame2.push_back("     ))) ");
+
+	printBackground(176, '.');
+	printWindow(20,5,37,8,80);
+	printWindowText(logoContent2, 21, 6, 241);
+	
+	for(int i = 0; i < 3; i++){
+		printWindowText(frame2, 21, 6, 241);
+		Sleep(800);
+		printWindowText(frame1, 21, 6, 241);
+		Sleep(800);
+	}
+
+	hitEnter();
+}
 
 void printGaltonGame(const string* username, int* board){}
 
-void printGameHistory(){}
+void printGameHistory(const string* username, vector<game> gameList){
+	
+	printBackground(240, ' ');
+	changeColor(240);
+
+	cout << "Welcome, " << *username << " to the Game History Screen." << endl << endl;
+	cout << "Loading History..." << endl;
+	Sleep(300);
+
+	for(int i = 0; i < gameList.size(); i++){
+		cout << "\nGAME #: " << gameList[i].gameNumber;
+		cout << "\nSCORE: " << gameList[i].score << endl;
+	}
+
+	hitEnter();
+	
+}
 
 void signIn(string* username, bool* signedIn){
 	
@@ -261,5 +318,45 @@ void printHistogram(int** board, int rows){
 		}
 	
 	}
+
+}
+
+game goGaltonGame(const string* username, int rows, int balls, int prob, int gameNumber){
+	
+	int** board = 0;
+	double tempScore = 0;
+	double multipliers[10] = {126, 14, 3.5, 1.5, 1, 1, 1.5, 3.5, 14, 126};
+	game thisGame;
+
+	printBackground(240, ' ');
+	moveCursor(0,0);
+	changeColor(240);
+	cout << "\t\tHello, " << *username << ", Thanks for Playing the Galton Game.\n";
+	board = initializeBoard(rows);
+	runGalton(balls, rows, board);
+	printGaltonBoard(username, rows, board);
+	changeColor(249);
+	cout << "\nWeight:\t     ";
+	for(int j = 0; j < rows; j++){
+		cout << setw(6) << multipliers[j];
+	}
+	changeColor(252);
+	cout << "\nCollumn:     ";
+	for(int i = 0; i < rows; i++){
+		double colPoints = board[(rows-1)][i] * multipliers[i];
+		tempScore = colPoints + tempScore;
+		cout << setw(6) << colPoints;
+	}
+	
+	thisGame.gameNumber = gameNumber;
+	thisGame.score = tempScore;
+	
+	cout << "\n\n\t\tGAME NUMBER: " << thisGame.gameNumber << "\n\t\tTOTAL SCORE: " << thisGame.score;
+	
+	deleteBoard(board, rows);
+
+	hitEnter();
+
+	return thisGame;
 
 }

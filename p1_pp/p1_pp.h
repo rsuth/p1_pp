@@ -4,6 +4,13 @@
 
 using namespace std;
 
+struct game{
+
+	int gameNumber;
+	double score;
+
+};
+
 /****
 * Title: printMainMenu
 *
@@ -59,10 +66,10 @@ void printGaltonGame(const string* username, int rows, int** board);
 *
 * Desc:	Prints the scores of each game.
 * Pre:	a username string exists
-*		a vector of doubles containing user score totals exists
+*		a vector of games containing game structs
 * Post: NONE
 */
-void printGameHistory(const string* username, const vector<double>* scores);
+void printGameHistory(const string* username, vector<game> gameList);
 
 /****
 * Title: signIn
@@ -113,3 +120,5 @@ void printHistogram(int** board, int rows);
 * Title: goGalton
 */
 void goGalton(const string* username, int rows, int balls, int prob);
+
+game goGaltonGame(const string* username, int rows, int balls, int prob, int gameNumber);
