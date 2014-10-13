@@ -197,6 +197,7 @@ void printIDandStars(){
 	
 	printBackground(240, ' ');
 	changeColor(242);
+	cout << endl << "\t\t" << ctime(&rawtime);
 	cout << "\t\tID INFORMATION" << endl
 		<< "\t\t==============" << endl
 		<< "\t\tProgrammer: Rick Sutherland" << endl
@@ -221,8 +222,27 @@ void printIDandStars(){
 		<< "\t\t8. After the user signs in, use name in all prompts" << endl;
 	changeColor(245);
 	cout << "\t\tTOTAL STARS: 8" << endl;
-	cout << endl << "\t\t" << ctime(&rawtime);
+
 	hitEnter();
+	
+	printBackground(7, ' ');
+	changeColor(11);
+	cout << endl;
+	cout << "\t\tCredits:" << endl
+		<< "\t\t=======" << endl
+		<< "\t\tThanks to Professor Forman, Ati G., and everyone else in" << endl
+		<< "\t\tCisc205 OOPS for their presentations on pointers, and for" << endl
+		<< "\t\tgiving me the opportunity to learn by participating in my" << endl
+		<< "\t\tclass demos and by asking me for help on their programs." << endl << endl;
+	changeColor(12);
+	cout << "\t\tResources: " << endl
+		<< "\t\t=========" << endl
+		<< "\t\t\"Starting Out With C++, 7th Ed.\", Tony Gaddis, 2012" << endl
+		<< "\t\thttp://www.cplusplus.com/doc/tutorial/pointers/" << endl
+		<< "\t\thttp://www.cprogramming.com/tutorial/lesson6.html" << endl;
+
+	hitEnter();
+
 }
 
 void runGalton(int balls, int rows, int** board){
