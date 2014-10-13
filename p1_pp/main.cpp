@@ -6,7 +6,7 @@
 *	Assignment Name: Pointer Power
 *	Course: CISC 205 OOPS		
 *	Class Meeting Time:	T/TH 9:35	
-*	Instructor:	Larry Foreman				
+*	Instructor:	Larry Forman				
 *	Hours:
 *	Difficulty:
 *	Competion Date:

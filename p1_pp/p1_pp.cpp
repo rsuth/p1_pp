@@ -12,45 +12,7 @@
 using namespace std;
 
 const string MY_NAME = "Rick";
-/*
-	The following are all defined as constants in <windows.h>:
 
-	BACKGROUND_INTENSITY	= 128;
-	BACKGROUND_RED			=  64;
-	BACKGROUNDGREEN			=  32;
-	BACKGROUND_BLUE			=  16;
-	FOREGROUND_INTENSITY	=   8;
-	FOREGROUND_RED			=   4;
-	FOREGROUND_GREEN		=   2;
-	FOREGROUND_BLUE			=   1;
-
-	with the following combinations:
-
-	COLOR NAME		BACKGROUND #	FOREGROUND #
-
-	Black				 0				0		(= No Blue, no Green, no Red)
-	Blue				16				1		(= Blue)
-	Green				32				2		(= Green)
-	Cyan				48				3		(= Blue  + Green)
-	Red					64				4		(= Red)
-	Magenta				80				5		(= Blue  + Red)
-	Yellow				96				6		(= Green + Red)
-	White			   112				7		(= Blue  + Green + Red)
-	Intensity + Black  128				8		(= Intensity alone)
-	Intensity + Blue   144				9		(= Intensity + Blue)
-	etc.			   ...			  ...
-	Intensity + White  240			   15		(= Intensity + Blue + Green + Red)
-
-	Then, you can combine any backgound color with any foreground color
-	simply by adding the two corresponding values, like:
-
-	Background Yellow  + Foreground Red =
-	96    +             4   = 100
-
-	Background Intensity + Yellow and Foreground Intensity + Red =
-	128      +   96    +                 8     +  4   = 236
-
-	*/
 void printMainMenu(bool &quit){
 
 	string user = "USER";
@@ -80,7 +42,7 @@ void printMainMenu(bool &quit){
 		
 		if(signedIn){ menuContent[11] = ("\t\t\t\t\tsigned in as: " + user);}
 
-		printBackground(39, '.');
+		printBackground(112, ' ');
 		printTitle(&user, signedIn);
 		printWindow(10, 8, 60, 15, 26);
 		printWindowText(menuContent, 10, 9, 26);
@@ -159,14 +121,6 @@ void printGaltonBoard(const string* username, int rows, int** board){
 
 void printLogo(){
 
-	//vector<string> logoContent;
-	//logoContent.push_back("   ( (");
-	//logoContent.push_back("    ) )");
-	//logoContent.push_back("  ........");
-	//logoContent.push_back("  |  R   |]");
-	//logoContent.push_back("  \\   S  / ");
-	//logoContent.push_back("   `----'"); 
-
 	vector<string> logoContent2;
 	logoContent2.push_back("     )))                            ");
 	logoContent2.push_back("    (((                             ");
@@ -204,7 +158,9 @@ void printGameHistory(const string* username, vector<game> gameList){
 	changeColor(240);
 
 	cout << "Welcome, " << *username << " to the Game History Screen." << endl << endl;
-	cout << "Loading History..." << endl;
+	
+	if (gameList.size() != 0){ cout << "Loading History..." << endl; }
+
 	Sleep(300);
 
 	for(int i = 0; i < gameList.size(); i++){
@@ -232,7 +188,41 @@ void signIn(string* username, bool* signedIn){
 
 }
 
-void printIDandStars(){}
+void printIDandStars(){
+	
+	// Change the time into a human readable format FROM:
+	//http://stackoverflow.com/questions/997946/how-to-get-current-time-and-date-in-c
+	time_t rawtime;
+	time(&rawtime);
+	
+	printBackground(240, ' ');
+	changeColor(242);
+	cout << endl << "\t\t" << ctime(&rawtime);
+	cout << "\t\tID INFORMATION" << endl
+		<< "\t\t==============" << endl
+		<< "\t\tProgrammer: Rick Sutherland" << endl
+		<< "\t\tAssignment #: P#1_PP" << endl
+		<< "\t\tAssignment Name: Pointer Power" << endl
+		<< "\t\tCourse: CISC205 OOPS" << endl
+		<< "\t\tClass Meeting Time: T/Th 9:35-12:45" << endl
+		<< "\t\tInstructor: Larry Forman" << endl
+		<< "\t\tHours: 14" << endl
+		<< "\t\tDifficulty: 7" << endl
+		<< "\t\tCompletion Date: 10/09/2014" << endl
+		<< "\t\tProject Name: p1_pp" << endl << endl;
+	changeColor(244);
+	cout << "\t\tStars: " << endl
+		<< "\t\t=====" << endl
+		<< "\t\t1. Center Screen Output" << endl
+		<< "\t\t2. Demo Early" << endl
+		<< "\t\t3 & 4. Print Histogram (2 Stars)" << endl
+		<< "\t\t5. Perfectly Align weight and score values" << endl
+		<< "\t\t6. Effectively Implement a pointer to const item" << endl
+		<< "\t\t7. Effectively Implement a pointer to a pointer" << endl;
+	changeColor(245);
+		cout << "\t\tTOTAL STARS: 7" << endl;
+	hitEnter();
+}
 
 void runGalton(int balls, int rows, int** board){
 
