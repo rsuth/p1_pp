@@ -129,5 +129,6 @@ void hitEnter();
 * 
 *
 */
-void confirmQuit(bool* quit);
+void confirmQuit(bool* quit, const string* username);
+
 #endif /*MENUNAVIGATIONFUNCTIONS_H*/

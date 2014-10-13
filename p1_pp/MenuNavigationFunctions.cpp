@@ -208,11 +208,11 @@ void hitEnter(){
 	cin.ignore(10000, '\n');
 }
 
-void confirmQuit(bool* quit){
+void confirmQuit(bool* quit, const string* username){
 	vector<string> confirmText;
-	confirmText.push_back(" Are you sure you want to quit? (Y/N)?");
-	printWindow(19, 13, 39, 4, 111);
-	printWindowText(confirmText, 19, 14, 111);
+	confirmText.push_back(*username +", Are you sure you want to quit(Y/N)?");
+	printWindow(19, 13, 50, 4, 111);
+	printWindowText(confirmText, 20, 14, 111);
 	if(toupper(_getch()) == 'Y'){
 		*quit = true;
 	}

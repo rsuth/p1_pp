@@ -66,7 +66,7 @@ void printMainMenu(bool &quit){
 				printGameHistory(&user, gameList);
 				break;
 			case 'Q':
-				confirmQuit(&quit);
+				confirmQuit(&quit, &user);
 				break;
 			default:
 				printErrorMessage();
@@ -197,7 +197,6 @@ void printIDandStars(){
 	
 	printBackground(240, ' ');
 	changeColor(242);
-	cout << endl << "\t\t" << ctime(&rawtime);
 	cout << "\t\tID INFORMATION" << endl
 		<< "\t\t==============" << endl
 		<< "\t\tProgrammer: Rick Sutherland" << endl
@@ -209,7 +208,7 @@ void printIDandStars(){
 		<< "\t\tHours: 14" << endl
 		<< "\t\tDifficulty: 7" << endl
 		<< "\t\tCompletion Date: 10/09/2014" << endl
-		<< "\t\tProject Name: p1_pp" << endl << endl;
+		<< "\t\tProject Name: p1_pp" << endl;
 	changeColor(244);
 	cout << "\t\tStars: " << endl
 		<< "\t\t=====" << endl
@@ -218,9 +217,11 @@ void printIDandStars(){
 		<< "\t\t3 & 4. Print Histogram (2 Stars)" << endl
 		<< "\t\t5. Perfectly Align weight and score values" << endl
 		<< "\t\t6. Effectively Implement a pointer to const item" << endl
-		<< "\t\t7. Effectively Implement a pointer to a pointer" << endl;
+		<< "\t\t7. Effectively Implement a pointer to a pointer" << endl
+		<< "\t\t8. After the user signs in, use name in all prompts" << endl;
 	changeColor(245);
-		cout << "\t\tTOTAL STARS: 7" << endl;
+	cout << "\t\tTOTAL STARS: 8" << endl;
+	cout << endl << "\t\t" << ctime(&rawtime);
 	hitEnter();
 }
 
